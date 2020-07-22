@@ -28,6 +28,9 @@
     "cms-e2e": {
       "tags": [],
       "implicitDependencies": ["cms"]
+    },
+    "managed-feature": {
+      "tags": []
     }
   }
 }

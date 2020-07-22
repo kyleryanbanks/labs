@@ -120,6 +120,38 @@
           }
         }
       }
+    },
+    "managed-feature": {
+      "projectType": "library",
+      "root": "libs/managed-feature",
+      "sourceRoot": "libs/managed-feature/src",
+      "prefix": "cms",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/managed-feature/tsconfig.lib.json",
+              "libs/managed-feature/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/managed-feature/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/managed-feature/jest.config.js",
+            "tsConfig": "libs/managed-feature/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/managed-feature/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
