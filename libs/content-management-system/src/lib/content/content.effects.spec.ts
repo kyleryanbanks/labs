@@ -29,15 +29,22 @@ describe('ContentEffects', () => {
     effects = TestBed.get(ContentEffects);
   });
 
-  describe('loadContent$', () => {
+  describe('loadEndpoints$', () => {
     it('should work', () => {
-      actions = hot('-a-|', { a: ContentActions.loadContent() });
-
-      const expected = hot('-a-|', {
-        a: ContentActions.loadContentSuccess({ content: [] }),
+      actions = hot('-a-|', {
+        a: ContentActions.loadEndpoints({
+          endpoints: { foo: 'bar' } as Endpoints,
+        }),
       });
 
-      expect(effects.loadContent$).toBeObservable(expected);
+      const expected = hot('-a-|', {
+        a: ContentActions.loadEndpointSuccess({
+          name: 'foo',
+          content: [],
+        }),
+      });
+
+      expect(effects.loadEndpoints$).toBeObservable(expected);
     });
   });
 });

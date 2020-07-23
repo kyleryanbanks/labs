@@ -2,5 +2,6 @@
  * Interface for the 'Content' data
  */
 export interface ContentEntity {
-  id: string | number; // Primary ID
+  id: string; // Primary ID
+  content: any;
 }

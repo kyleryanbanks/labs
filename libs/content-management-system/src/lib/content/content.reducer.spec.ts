@@ -12,12 +12,15 @@ describe('Content Reducer', () => {
   beforeEach(() => {});
 
   describe('valid Content actions', () => {
-    it('loadContentSuccess should return set the list of known Content', () => {
+    it('loadEndpointSuccess should return set the list of known Content', () => {
       const content = [
         createContentEntity('PRODUCT-AAA'),
         createContentEntity('PRODUCT-zzz'),
       ];
-      const action = ContentActions.loadContentSuccess({ content });
+      const action = ContentActions.loadEndpointSuccess({
+        name: 'foo',
+        content,
+      });
 
       const result: State = reducer(initialState, action);
 

@@ -33,13 +33,14 @@ export const getContentEntities = createSelector(
   (state: State) => selectEntities(state)
 );
 
-export const getSelectedId = createSelector(
-  getContentState,
-  (state: State) => state.selectedId
-);
+export const getSelected = (id: string) =>
+  createSelector(getContentEntities, (entities) => entities[id]);
 
-export const getSelected = createSelector(
-  getContentEntities,
-  getSelectedId,
-  (entities, selectedId) => selectedId && entities[selectedId]
-);
+export const getAllEndpointsAreLoaded = (endpoints: string[]) =>
+  createSelector(getContentLoaded, getContentEntities, (loaded, entities) => {
+    if (!loaded) {
+      return false;
+    }
+
+    return endpoints.some((endpoint) => entities[endpoint] === undefined);
+  });

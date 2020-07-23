@@ -1,14 +1,17 @@
 import { createAction, props } from '@ngrx/store';
 import { ContentEntity } from './content.models';
 
-export const loadContent = createAction('[Content] Load Content');
-
-export const loadContentSuccess = createAction(
-  '[Content] Load Content Success',
-  props<{ content: ContentEntity[] }>()
+export const loadEndpoints = createAction(
+  '[Content] Load Endpoints',
+  props<{ endpoints: string[] }>()
 );
 
-export const loadContentFailure = createAction(
-  '[Content] Load Content Failure',
+export const loadEndpointSuccess = createAction(
+  '[Content] Load Endpoint Success',
+  props<{ content: ContentEntity }>()
+);
+
+export const loadEndpointFailure = createAction(
+  '[Content] Load Endpoint Failure',
   props<{ error: any }>()
 );

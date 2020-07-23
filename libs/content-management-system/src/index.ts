@@ -3,4 +3,5 @@ import * as ContentFeature from './lib/content/content.reducer';
 import * as ContentSelectors from './lib/content/content.selectors';
 export { ContentActions, ContentFeature, ContentSelectors };
 export * from './lib/content/content.models';
+export * from './lib/content/content.resolver';
 export * from './lib/content-management-system.module';

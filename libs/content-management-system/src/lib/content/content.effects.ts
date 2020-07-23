@@ -1,28 +1,36 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
 
-import * as fromContent from './content.reducer';
+import { of, from } from 'rxjs';
+import { map, switchMap, catchError, mergeMap } from 'rxjs/operators';
+
+import { ContentService } from './content.service';
 import * as ContentActions from './content.actions';
 
 @Injectable()
 export class ContentEffects {
-  loadContent$ = createEffect(() =>
+  loadEndpoints$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ContentActions.loadContent),
-      fetch({
-        run: (action) => {
-          // Your custom service 'load' logic goes here. For now just return a success action...
-          return ContentActions.loadContentSuccess({ content: [] });
-        },
-
-        onError: (action, error) => {
-          console.error('Error', error);
-          return ContentActions.loadContentFailure({ error });
-        },
+      ofType(ContentActions.loadEndpoints),
+      map((action) => action.endpoints),
+      switchMap((endpoints) => {
+        return from(endpoints).pipe(
+          mergeMap((endpoint) =>
+            this.service.getContent(endpoint).pipe(
+              map((content) =>
+                ContentActions.loadEndpointSuccess({
+                  content: { id: endpoint, content },
+                })
+              ),
+              catchError((error) =>
+                of(ContentActions.loadEndpointFailure({ error }))
+              )
+            )
+          )
+        );
       })
     )
   );
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, public service: ContentService) {}
 }

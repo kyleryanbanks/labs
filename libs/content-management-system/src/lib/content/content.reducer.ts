@@ -7,7 +7,6 @@ import { ContentEntity } from './content.models';
 export const CONTENT_FEATURE_KEY = 'content';
 
 export interface State extends EntityState<ContentEntity> {
-  selectedId?: string | number; // which Content record has been selected
   loaded: boolean; // has the Content list been loaded
   error?: string | null; // last known error (if any)
 }
@@ -27,15 +26,13 @@ export const initialState: State = contentAdapter.getInitialState({
 
 const contentReducer = createReducer(
   initialState,
-  on(ContentActions.loadContent, (state) => ({
-    ...state,
-    loaded: false,
-    error: null,
-  })),
-  on(ContentActions.loadContentSuccess, (state, { content }) =>
-    contentAdapter.addAll(content, { ...state, loaded: true })
+  on(ContentActions.loadEndpointSuccess, (state, { content }) =>
+    contentAdapter.addOne(content, {
+      ...state,
+      loaded: true,
+    })
   ),
-  on(ContentActions.loadContentFailure, (state, { error }) => ({
+  on(ContentActions.loadEndpointFailure, (state, { error }) => ({
     ...state,
     error,
   }))
