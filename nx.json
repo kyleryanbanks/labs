@@ -31,6 +31,9 @@
     },
     "managed-feature": {
       "tags": []
+    },
+    "content-management-system": {
+      "tags": []
     }
   }
 }

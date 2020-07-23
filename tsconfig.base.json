@@ -16,7 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@labs/managed-feature": ["libs/managed-feature/src/index.ts"]
+      "@labs/managed-feature": ["libs/managed-feature/src/index.ts"],
+      "@labs/content-management-system": [
+        "libs/content-management-system/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
